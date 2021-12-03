@@ -1,15 +1,5 @@
 # Steam on FreeBSD
 
-Add this to your `/etc/fstab`, its required for linux compatiblity:
-```
-linprocfs       /compat/linux/proc     linprocfs        rw              0 0
-linsysfs        /compat/linux/sys      linsysfs         rw              0 0
-tmpfs           /compat/linux/dev/shm  tmpfs            rw,mode=1777    0 0
-fdesc           /dev/fd                fdescfs          rw              0 0
-proc            /proc                  procfs           rw              0 0
-```
-Reboot.
-
 Load in the `linux` and `linux64` kernel modules with
 ```
 sudo kldload linux linux64
@@ -24,12 +14,29 @@ The linux-steam-utils package is usually outdated therefore we will use the upst
 ```
 git clone https://github.com/shkhln/linuxulator-steam-utils.git
 cd linuxulator-steam-utils
+sudo make dependencies
 make
 sudo make install
+```
+
+Add this to your `/etc/fstab`, its required for linux compatiblity:
+```
+linprocfs       /compat/linux/proc     linprocfs        rw              0 0
+linsysfs        /compat/linux/sys      linsysfs         rw              0 0
+tmpfs           /compat/linux/dev/shm  tmpfs            rw,mode=1777    0 0
+fdesc           /dev/fd                fdescfs          rw              0 0
+proc            /proc                  procfs           rw              0 0
+```
+
+Reboot.
+
+Install and start steam.
+```
 /opt/steam-utils/bin/steam-install --allow-stealing-my-passwords,-browser-history-and-ssh-keys
 /opt/steam-utils/bin/steam --allow-stealing-my-passwords,-browser-history-and-ssh-keys
 ```
-And Steam should work fine!
+
+And it should work fine!
 
 # Wine/Proton support
 
