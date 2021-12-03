@@ -42,11 +42,25 @@ And it should work fine!
 
 First install Proton 6 by starting a Windows game.
 
+Install Wine/Proton
 ```
 sudo pkg install wine-proton libc6-shim python3
+```
+
+Make the pkg keys accessible to wine-pkg trough a symlink
+```
 mkdir -p $HOME/.i386-wine-pkg/usr/share/keys
 ln -s /usr/share/keys/pkg $HOME/.i386-wine-pkg/usr/share/keys
+```
+
+Install the required packages
+```
 /usr/local/wine-proton/bin/pkg32.sh install wine-proton mesa-dri
+```
+
+Copy over Wine/Proton 
+```
 /opt/steam-utils/bin/lsu-register-proton
 ```
+
 Restart Steam and choose `emulators/wine-proton` from the available proton versions.
